@@ -11,4 +11,8 @@
 |
 */
 
+// Route to index
 Route::get('/', 'PagesController@index');
+
+// Route to ArticlesController
+Route::resource('articles', 'ArticlesController');
