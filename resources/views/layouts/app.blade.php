@@ -13,6 +13,12 @@
 
     </head>
     <body>
-      @yield('content')
+      @include('inc.navbar')
+      <div class="container">
+        @yield('content')
+      </div>
+      {{-- Scripts --}}
+      <script src="{{ asset('js/app.js') }}"></script>
+
     </body>
 </html>
