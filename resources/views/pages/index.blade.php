@@ -5,9 +5,9 @@
       <div class="index-content">
           <h1>{{$title}}</h1>
           <p>Where We Share Ideas</p>
-          {{-- @if(Auth::guest()) --}}
+          @if(Auth::guest())
               <p><a class="btn btn-primary btn-lg" href="/login" role="button">Login</a><a class="btn btn-success btn-lg" href="/register" role="button">Register</a></p>
-          {{-- @endif --}}
+          @endif
       </div>
   </div>
 @endsection
