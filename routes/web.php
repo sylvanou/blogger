@@ -18,4 +18,4 @@ Route::get('/', 'PagesController@index');
 Route::resource('articles', 'ArticlesController');
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@index');

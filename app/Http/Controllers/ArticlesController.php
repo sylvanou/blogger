@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Article;
 
 class ArticlesController extends Controller
@@ -44,10 +45,10 @@ class ArticlesController extends Controller
         ]);
 
                 // Create Article
-        $article = new Article();
+        $article = new Article;
         $article->title = $request->input('title');
         $article->body = $request->input('body');
-        // $article->user_id = auth()->user()->id;
+        $article->user_id = auth()->user()->id;
         $article->save();
         return redirect('/articles')->with('success', 'Article Created');
     }
@@ -76,6 +77,10 @@ class ArticlesController extends Controller
     {
         //
         $article = Article::find($id);
+        // Check for correct user
+        if (auth()->user()->id !== $article->user_id) {
+            return redirect('/articles')->with('error', 'Unauthorized Page');
+        }
 
         return view('articles.edit')->with('article', $article);
     }
@@ -95,11 +100,11 @@ class ArticlesController extends Controller
             'body' => 'required'
         ]);
 
-                // Create Article
-        $article = new Article();
+        // Create Article
+        $article = Article::find($id);
         $article->title = $request->input('title');
         $article->body = $request->input('body');
-        // $article->user_id = auth()->user()->id;
+        $article->user_id = auth()->user()->id;
         $article->save();
         return redirect('/articles')->with('success', 'Article Updated');
     }
@@ -115,9 +120,9 @@ class ArticlesController extends Controller
         //
         $article = Article::find($id);
         // Check for correct user
-        // if (auth()->user()->id !== $article->user_id) {
-        //     return redirect('/articles')->with('error', 'Unauthorized Page');
-        // }
+        if (auth()->user()->id !== $article->user_id) {
+            return redirect('/articles')->with('error', 'Unauthorized Page');
+        }
 
         $article->delete();
         return redirect('/articles')->with('success', 'Article Removed');
