@@ -3,7 +3,6 @@
 @section('content')
     <a href="/articles" class="btn btn-default article-container">Go back</a>
     <h1>{{$article->title}}</h1>
-    <img style="width: 100%" src="/storage/cover_images/{{$article->cover_image}}">
     <br><br>
     <div class="article-body">
         {!!$article->body!!}
@@ -14,7 +13,6 @@
     @if(!Auth::guest())
         @if(Auth::user()->id == $article->user_id)
         <a href="/articles/{{$article->id}}/edit" class="btn btn-default">Edit</a>
-
         {!!Form::open(['action' => ['ArticlesController@destroy', $article->id], 'method' => 'article', 'class' => 'pull-right'])!!}
             {{Form::hidden('_method', 'DELETE')}}
             {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}

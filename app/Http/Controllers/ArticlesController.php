@@ -75,6 +75,9 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         //
+        $article = Article::find($id);
+
+        return view('articles.edit')->with('article', $article);
     }
 
     /**
@@ -87,6 +90,18 @@ class ArticlesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+                // Create Article
+        $article = new Article();
+        $article->title = $request->input('title');
+        $article->body = $request->input('body');
+        // $article->user_id = auth()->user()->id;
+        $article->save();
+        return redirect('/articles')->with('success', 'Article Updated');
     }
 
     /**
