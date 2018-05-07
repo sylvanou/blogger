@@ -113,5 +113,13 @@ class ArticlesController extends Controller
     public function destroy($id)
     {
         //
+        $article = Article::find($id);
+        // Check for correct user
+        // if (auth()->user()->id !== $article->user_id) {
+        //     return redirect('/articles')->with('error', 'Unauthorized Page');
+        // }
+
+        $article->delete();
+        return redirect('/articles')->with('success', 'Article Removed');
     }
 }
